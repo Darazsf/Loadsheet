@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="loadsheet.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+
+    <h1>Loadsheet B737 NG</h1>
+
+    <div class="wrapper">
+        <div class="sec">
+            <form id="basicForm">
+                <label>Basic weight</label>
+                    <input class="basicW" type="number"  required="true"></input>
+                <label>Crew</label>
+                    <input class="basicCrew" type="number"  min="6" max="8" required="true"> </input>
+
+
+                <span>Choose your Pantry:</span>
+                <select class = "pantry">
+                    <option value = "-1" selected>choose pantry</option>
+                    <option value = "200">A</option>
+                    <option value = "500">B</option>
+                 </select>
+                 <input type="submit" value="Submit">
+            </form>
+            
+        </div>
+        <div>Dry Operating Weight = <span id="dryDow"></span></div>
+
+
+
+
+
+        <div class="sec">
+            <form id="tof">
+                <label>+ Take off fuel (Ramp fuel weight minus taxi fuel)</label>
+                    <input id="tofWeight" type="number" required="true"></input>
+                    <input type="submit" value="Submit">
+            </form>
+        </div>
+
+        <div>OPERATING WEIGHT = <span id="ow"></span></div>
+
+        <!-- passenger and bags -->
+        <div class="sec">
+            <form id="noPass">
+                <label>Male = </label>
+                    <input class="maleNum" type="number" required="true"></input>
+                <label>Female = </label>
+                    <input class="femaleNum" type="number" required="true"></input>
+                <label>Child = </label>
+                    <input class="childNum" type="number" required="true"></input>
+                <label>Inf = </label>
+                    <input class="infNum" type="number" required="true"></input>
+
+            <div>
+                <label>Bags (kgs) = </label>
+                <input class="bagNum" type="number" required="true"></input>
+
+            </div>
+            <input type="submit" value="Submit">
+        </form>
+        </div>
+        <div>Passanger Total Weight = <span id="passW"></span></div>
+        <div>Baggage Total Weight = <span id="bagW"></span></div>
+
+
+
+
+
+    </div>
+
+</body>
+<script>
+
+// Basic
+
+let submitBasic=document.querySelector("#basicForm");
+let dryOperatingWeight = document.querySelector("#dryDow")
+let tof = document.querySelector("#tof")
+let ow = document.querySelector("#ow")
+let noOfPass = document.querySelector("#noPass")
+
+let dow = 0
+
+
+
+    
+submitBasic.addEventListener("submit", (e) => {
+    e.preventDefault();
+    finalDow()
+
+   
+  
+  });
+
+  function finalDow(){
+    let basicWeight=document.querySelector('.basicW').value
+    let crewNum = document.querySelector('.basicCrew').value
+    let pantry = document.querySelector(".pantry").value
+    dow = parseInt(basicWeight)+(parseInt(crewNum)*88)+parseInt(pantry)
+    dryOperatingWeight.innerHTML=dow
+    return dow
+  }
+
+
+  tof.addEventListener("submit", (e) => {
+    e.preventDefault();
+    finalOperatingW(dow)
+    
+
+  })
+
+  function finalOperatingW(dow){
+    let toW = document.querySelector("#tofWeight").value
+      let operatingW = parseInt(dow) + parseInt(toW)
+      ow.innerHTML = operatingW
+  }
+ 
+  noOfPass.addEventListener("submit", (e) =>{
+    e.preventDefault()
+    totalPass()
+  })
+
+  function totalPass(){
+    let maleNumber = document.querySelector(".maleNum")
+    let femaleNumber = document.querySelector(".femaleNum")
+    let childNumber = document.querySelector(".childNum")
+    let infantNumber = document.querySelector(".infNum")
+    let baggageNumber = document.querySelector(".bagNum")
+
+    let passTotalWeight = document.querySelector("#passW")
+    let bagTotalWeight = document.querySelector("#bagW")
+
+    let passWeight = (parseInt(maleNumber)*80) + (parseInt(femaleNumber)*70) + (parseInt(childNumber)*35) + parseInt(infantNumber)
+    let bagWeight = parseInt(baggageNumber)*23
+
+    passTotalWeight.innerHTML=passWeight
+    bagTotalWeight.innerHTML=bagWeight
+
+  }
+
+</script>
+
+
+</html>

@@ -1,0 +1,10 @@
+body{
+    margin: 2rem 10rem;
+}
+.sec{
+    margin-top: 2rem;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: row;
+    padding: 2rem 3rem;
+}
