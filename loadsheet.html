@@ -27,7 +27,7 @@
                     <option value = "-1" selected>choose pantry</option>
                     <option value = "200">A</option>
                     <option value = "500">B</option>
-                 </select>
+                 </select><br>
                  <input type="submit" value="Submit">
             </form>
             
@@ -41,7 +41,7 @@
         <div class="sec">
             <form id="tof">
                 <label>+ Take off fuel (Ramp fuel weight minus taxi fuel)</label>
-                    <input id="tofWeight" type="number" required="true"></input>
+                    <input id="tofWeight" type="number" required="true"></input><br>
                     <input type="submit" value="Submit">
             </form>
         </div>
@@ -52,24 +52,25 @@
         <div class="sec">
             <form id="noPass">
                 <label>Male = </label>
-                    <input class="maleNum" type="number" required="true"></input>
+                    <input class="mNum" type="number" required="true"></input><br>
                 <label>Female = </label>
-                    <input class="femaleNum" type="number" required="true"></input>
+                    <input class="fNum" type="number" required="true"></input><br>
                 <label>Child = </label>
-                    <input class="childNum" type="number" required="true"></input>
+                    <input class="cNum" type="number" required="true"></input><br>
                 <label>Inf = </label>
-                    <input class="infNum" type="number" required="true"></input>
+                    <input class="iNum" type="number" required="true"></input><br>
 
             <div>
                 <label>Bags (kgs) = </label>
-                <input class="bagNum" type="number" required="true"></input>
+                <input class="bNum" type="number" required="true"></input>
 
-            </div>
+            </div><br>
             <input type="submit" value="Submit">
         </form>
         </div>
         <div>Passanger Total Weight = <span id="passW"></span></div>
         <div>Baggage Total Weight = <span id="bagW"></span></div>
+        <div>Passanger Total Number  = <span id="passTtl"></span></div>
 
 
 
@@ -130,20 +131,24 @@ submitBasic.addEventListener("submit", (e) => {
   })
 
   function totalPass(){
-    let maleNumber = document.querySelector(".maleNum")
-    let femaleNumber = document.querySelector(".femaleNum")
-    let childNumber = document.querySelector(".childNum")
-    let infantNumber = document.querySelector(".infNum")
-    let baggageNumber = document.querySelector(".bagNum")
+    let maleNumber = document.querySelector(".mNum").value
+    let femaleNumber = document.querySelector(".fNum").value
+    let childNumber = document.querySelector(".cNum").value
+    let infantNumber = document.querySelector(".iNum").value
+    let baggageNumber = document.querySelector(".bNum").value
 
+    let passNum = document.querySelector("#passTtl")
     let passTotalWeight = document.querySelector("#passW")
     let bagTotalWeight = document.querySelector("#bagW")
 
-    let passWeight = (parseInt(maleNumber)*80) + (parseInt(femaleNumber)*70) + (parseInt(childNumber)*35) + parseInt(infantNumber)
+    console.log(maleNumber,femaleNumber,childNumber,baggageNumber)
+    let passWeight = (parseInt(maleNumber)*80) + (parseInt(femaleNumber)*70) + (parseInt(childNumber)*35);
+    let passTtlNumber = parseInt(maleNumber) + parseInt(femaleNumber) + parseInt(childNumber)
     let bagWeight = parseInt(baggageNumber)*23
-
+  
     passTotalWeight.innerHTML=passWeight
     bagTotalWeight.innerHTML=bagWeight
+    passNum.innerHTML=passTtlNumber + "+" + infantNumber
 
   }
 
