@@ -15,12 +15,15 @@
 
     <div class="wrapper">
         <div>
-            <label>Aircraft Reg.</label>
-            <select class="reg">
-                <option value="-1" selected>choose ragistration</option>
+            <form class="reg"><label>Aircraft Reg.</label>
+            <select class="registration">
+                <option value="-1" selected>Choose ragistration</option>
                 <option value="HAFRI">HAFRI</option>
                 <option value="HAMSE">HAMSE</option>
-            </select><br>
+            </select>
+            <input class="btn" type="submit" value="Submit">
+            </form>
+            
 
 
 
@@ -35,7 +38,7 @@
 
                 <span>Choose your Pantry:</span>
                 <select class="pantry">
-                    <option value="-1" selected>choose pantry</option>
+                    <option value="-1" selected>Choose pantry</option>
                     <option value="200">A</option>
                     <option value="500">B</option>
                 </select><br>
@@ -77,11 +80,16 @@
                     <input class="btn" type="submit" value="Submit">
                 </form>
                     </div>
-                    <div>
+                    <div class="total-weights">
                         <div>Passanger Total Weight = <span id="passW"></span></div>
                         <div>Baggage Total Weight = <span id="bagW"></span></div>
                         <div>Passanger Total Number = <span id="passTtl"></span></div>
                         <div class="finalW">Total Traffic Load = <span id="tTL"></span></div>
+                    </div>
+                    
+
+                    <div id="max-weights-container" class="sec">
+                       
                     </div>
                  
          </div>
@@ -96,9 +104,38 @@
     let tof = document.querySelector("#tof")
     let ow = document.querySelector("#ow")
     let noOfPass = document.querySelector("#noPass")
+    let regiForm = document.querySelector(".reg")
+    let totalTLoad = document.querySelector("#tTL")
+   
+    
+
+
+ 
 
     let dow = 0
+    
+    let hamse=[5500,82000,65000];
+    let hafri=[5600,83000,60000];
+    
+    regiForm.addEventListener("submit", (e) =>{
+        e.preventDefault()
+        
+        let regi = document.querySelector(".registration").value
+        let maxWeightDom = document.querySelector("#max-weights-container")
+    
+        if(regi=="HAMSE"){         
+            maxWeightDom.innerHTML = "<h4>" + "Max Zero Fuel Weight :" + hamse[0] + "</h4>" +
+             "<h4>" + "Max Take-off Weight :" + hamse[1] + "</h4>" + 
+             "<h4>" + "Max Landing Weight :" + hamse[2] + "</h4>" ;
+             maxWeightDom.append(maxWeightDom)
 
+        }else{
+            maxWeightDom.innerHTML = "<h4>" + "Max Zero Fuel Weight :" + hafri[0] + "</h4>" +
+             "<h4>" + "Max Take-off Weight :" + hafri[1] + "</h4>" + 
+             "<h4>" + "Max Landing Weight :" + hafri[2] + "</h4>" ;
+             maxWeightDom.append(maxWeightDom)
+        }
+})
 
 
 
@@ -116,6 +153,12 @@
         let pantry = document.querySelector(".pantry").value
         dow = parseInt(basicWeight) + (parseInt(crewNum) * 88) + parseInt(pantry)
         dryOperatingWeight.innerHTML = dow
+
+        let dow2=document.createElement("div")
+        dow2.classList.add("important")
+        totalTLoad.after(dow2)
+        dow2.innerHTML="+ Dry operating weight" + "(" + dow +")" 
+
         return dow
     }
 
@@ -135,11 +178,11 @@
 
     noOfPass.addEventListener("submit", (e) => {
         e.preventDefault()
-        totalPass(dow)
+        totalPass()
         
     })
 
-    function totalPass(dow) {
+    function totalPass() {
 
         let maleNumber = document.querySelector(".mNum").value
         let femaleNumber = document.querySelector(".fNum").value
@@ -150,10 +193,7 @@
         let passNum = document.querySelector("#passTtl")
         let passTotalWeight = document.querySelector("#passW")
         let bagTotalWeight = document.querySelector("#bagW")
-        let totalTLoad = document.querySelector("#tTL")
-      
-        
-
+    
 
         let passWeight = (parseInt(maleNumber) * 80) + (parseInt(femaleNumber) * 70) + (parseInt(childNumber) * 35);
         let passTtlNumber = parseInt(maleNumber) + parseInt(femaleNumber) + parseInt(childNumber)
@@ -164,13 +204,7 @@
         bagTotalWeight.innerHTML = bagWeight
         passNum.innerHTML = passTtlNumber + "+" + infantNumber
         totalTLoad.innerHTML = totalTrafficLoad
-        let dow2=document.createElement("div")
-        totalTLoad.after(dow2)
-        dow2.innerHTML="+ Dow = " + dow 
-
-
-        
-       
+ 
 
     }
 
